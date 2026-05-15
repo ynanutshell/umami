@@ -73,12 +73,13 @@ export function ShareEditForm({
       if (isEditing) {
         await post(`/share/id/${shareId}`, {
           name: data.name,
-          slug: share.slug,
+          slug: data.slug || share.slug,
           parameters,
         });
       } else {
         await post(`/websites/${websiteId}/shares`, {
           name: data.name,
+          slug: data.slug || undefined,
           parameters,
         });
       }
@@ -101,6 +102,7 @@ export function ShareEditForm({
   // Build default values from share parameters
   const defaultValues: Record<string, any> = {
     name: share?.name || '',
+    slug: share?.slug || '',
   };
   SHARE_NAV_ITEMS.forEach(section => {
     section.items.forEach(item => {
@@ -128,6 +130,14 @@ export function ShareEditForm({
             )}
             <FormField label={t(labels.name)} name="name" rules={{ required: t(labels.required) }}>
               <TextField autoComplete="off" autoFocus={!isEditing} />
+            </FormField>
+            <FormField label="Slug" name="slug" rules={{ 
+              pattern: { 
+                value: /^[a-zA-Z0-9_-]+$/, 
+                message: 'Only letters, numbers, hyphens, and underscores' 
+              }
+            }}>
+              <TextField autoComplete="off" />
             </FormField>
             <Grid columns="repeat(auto-fit, minmax(150px, 1fr))" gap="3">
               {SHARE_NAV_ITEMS.map(section => (

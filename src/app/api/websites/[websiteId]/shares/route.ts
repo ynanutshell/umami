@@ -46,6 +46,7 @@ export async function POST(
   const schema = z.object({
     name: z.string().max(200),
     parameters: anyObjectParam.optional(),
+    slug: z.string().min(1).max(100).optional(),
   });
 
   const { auth, body, error } = await parseRequest(request, schema);
@@ -62,7 +63,7 @@ export async function POST(
     return unauthorized();
   }
 
-  const slug = getRandomChars(16);
+  const slug = body.slug || getRandomChars(16);
 
   const share = await createShare({
     id: uuid(),
