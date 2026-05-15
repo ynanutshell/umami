@@ -71,7 +71,7 @@ export function ShareProvider({ slug, children }: { slug: string; children: Reac
 
   useEffect(() => {
     if (shouldRedirect) {
-      router.replace(`/share/${slug}/${allowedSections[0]}`);
+      router.replace(`/${slug}/${allowedSections[0]}`);
     }
   }, [shouldRedirect, slug, allowedSections, router]);
 
