@@ -51,8 +51,8 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: getBaseUrl(headerStore),
     title: {
-      template: '%s | ysabella',
-      default: 'site analytics — ysabella',
+      template: '%s | ysabella nicole alvarez',
+      default: 'site analytics — ysabella nicole alvarez',
     },
   };
 }
